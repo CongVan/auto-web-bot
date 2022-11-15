@@ -24,7 +24,10 @@ bot.on("text", async (data) => {
   const url = text.substring(entityUrl.offset, entityUrl.length);
   if (!url) return;
 
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({
+    headless: false,
+    args: ["--no-sandbox"],
+  });
   const page = await browser.newPage();
   await page.goto(url, {
     waitUntil: ["load", "domcontentloaded", "networkidle0", "networkidle2"],
