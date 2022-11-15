@@ -2,6 +2,12 @@ const TeleBot = require("telebot");
 const puppeteer = require("puppeteer");
 const path = require("path");
 const fs = require("fs");
+const express = require("express");
+const app = express();
+const api = require("./api");
+const PORT = process.env.PORT || 3000;
+app.use(express.json({ extended: false }));
+app.use("/api", api);
 
 const bot = new TeleBot("5492681556:AAGx6MC2bK6422g9y9tLyDOX9oKkF_5EFwE");
 
@@ -28,7 +34,9 @@ bot.on("text", async (data) => {
   await browser.close();
   const photo = fs.readFileSync(screenshot);
   data.reply.photo(photo);
-  data.reply.text("Done!")
+  data.reply.text("Done!");
 });
 
 bot.start();
+
+app.listen(PORT, () => console.log(`Server is running is port ${PORT}`));
