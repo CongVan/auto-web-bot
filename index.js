@@ -26,7 +26,7 @@ bot.on("text", async (data) => {
 
   const browser = await puppeteer.launch({
     headless: false,
-    args: ["--no-sandbox"],
+    args: ["--incognito", "--no-sandbox", "--single-process", "--no-zygote"],
   });
   const page = await browser.newPage();
   await page.goto(url, {
