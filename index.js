@@ -2,13 +2,6 @@ const TeleBot = require("telebot");
 const puppeteer = require("puppeteer");
 const path = require("path");
 const fs = require("fs");
-const express = require("express");
-const app = express();
-const api = require("./api");
-const PORT = process.env.PORT || 4000;
-app.use(express.json({ extended: false }));
-app.use("/api", api);
-
 const bot = new TeleBot("5492681556:AAGx6MC2bK6422g9y9tLyDOX9oKkF_5EFwE");
 
 bot.on("/do", (data) => {
@@ -25,9 +18,9 @@ bot.on("text", async (data) => {
   if (!url) return;
 
   const browser = await puppeteer.launch({
-    headless: false,
-    
+    headless: true,
   });
+
   const page = await browser.newPage();
   await page.goto(url, {
     waitUntil: ["load", "domcontentloaded", "networkidle0", "networkidle2"],
@@ -41,5 +34,3 @@ bot.on("text", async (data) => {
 });
 
 bot.start();
-
-app.listen(PORT, () => console.log(`Server is running is port ${PORT}`));
