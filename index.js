@@ -1,6 +1,6 @@
 const TeleBot = require("telebot");
 const puppeteer = require("puppeteer");
-const path = require("path");
+
 const bot = new TeleBot("5492681556:AAGx6MC2bK6422g9y9tLyDOX9oKkF_5EFwE");
 
 bot.on("text", async (data) => {
@@ -19,11 +19,9 @@ bot.on("text", async (data) => {
   await page.goto(url, {
     waitUntil: ["load", "domcontentloaded", "networkidle0", "networkidle2"],
   });
-  const screenshot = path.join("screenshot", "screenshot.png");
-  await page.screenshot({ path: screenshot });
   await browser.close();
   data.reply.text("Done!");
-  console.log("[Done] ", url)
+  console.log("[Done] ", url);
 });
 
 bot.start();
