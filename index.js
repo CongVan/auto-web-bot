@@ -5,7 +5,7 @@ const fs = require("fs");
 const express = require("express");
 const app = express();
 const api = require("./api");
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 app.use(express.json({ extended: false }));
 app.use("/api", api);
 
@@ -26,7 +26,7 @@ bot.on("text", async (data) => {
 
   const browser = await puppeteer.launch({
     headless: false,
-    args: ["--incognito", "--no-sandbox", "--single-process", "--no-zygote"],
+    
   });
   const page = await browser.newPage();
   await page.goto(url, {
